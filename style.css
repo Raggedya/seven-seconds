@@ -1,0 +1,135 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:#000;
+  font-family:Arial, Helvetica, sans-serif;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.game-screen{
+  width:min(100vw, 430px);
+  height:100vh;
+  background:url("assets/background.png") center top / 100% 100% no-repeat;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:32vh;
+}
+
+.question-card{
+  width:82%;
+  background:rgba(3,5,10,.94);
+  border:1.5px solid #168dff;
+  border-radius:22px;
+  padding:24px 20px 22px;
+  margin-bottom:14px;
+  box-shadow:0 0 22px rgba(0,140,255,.28);
+}
+
+.question-text{
+  min-height:112px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:1.52rem;
+  line-height:1.28;
+  font-weight:900;
+  color:#168dff;
+  margin-bottom:18px;
+}
+
+.timer-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.timer-ring{
+  width:128px;
+  height:128px;
+  border-radius:50%;
+  border:9px solid #168dff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 18px rgba(0,140,255,.8);
+}
+
+.timer-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.timer-number{
+  font-size:3.45rem;
+  font-weight:900;
+  line-height:.9;
+  color:white;
+}
+
+.timer-label{
+  font-size:.68rem;
+  letter-spacing:4px;
+  color:#168dff;
+  margin-top:8px;
+}
+
+.buttons{
+  width:82%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.main-button,
+.secondary-button{
+  width:100%;
+  height:54px;
+  border:none;
+  border-radius:15px;
+  font-size:1.24rem;
+  font-weight:900;
+  color:white;
+  cursor:pointer;
+}
+
+.main-button{
+  background:linear-gradient(180deg,#1697ff,#126edb);
+  box-shadow:0 0 16px rgba(0,140,255,.45);
+}
+
+.secondary-button{
+  background:linear-gradient(180deg,#181c24,#0c0f15);
+}
+
+.share-button{
+  width:58%;
+  height:40px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:13px;
+  background:rgba(0,0,0,.78);
+  color:white;
+  font-size:1rem;
+  font-weight:800;
+  cursor:pointer;
+}
+
+button:hover{
+  filter:brightness(1.08);
+}
+
+button:disabled{
+  opacity:.65;
+}
