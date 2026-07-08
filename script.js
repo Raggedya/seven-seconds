@@ -3,10 +3,12 @@ const startButton = document.getElementById("startButton");
 const shareButton = document.getElementById("shareButton");
 const questionText = document.getElementById("questionText");
 const timerNumber = document.getElementById("timerNumber");
-const timerRing = document.getElementById("timerRing");
 
-const goSound = new Audio("assets/go.mp3");
-const dingSound = new Audio("assets/ding.mp3");
+const goSound = new Audio("assets/go.mp3?v=1");
+const dingSound = new Audio("assets/ding.mp3?v=2");
+
+goSound.preload = "auto";
+dingSound.preload = "auto";
 
 let allPrompts = [];
 let timerInterval = null;
@@ -33,12 +35,12 @@ function parseCSV(csvText) {
 }
 
 function showRandomPrompt() {
+  stopTimer();
+
   if (!allPrompts.length) {
     questionText.textContent = "No prompts found.";
     return;
   }
-
-  stopTimer();
 
   const randomIndex = Math.floor(Math.random() * allPrompts.length);
   questionText.textContent = allPrompts[randomIndex];
@@ -49,10 +51,13 @@ function showRandomPrompt() {
 function startTimer() {
   if (isTimerRunning) return;
 
+  unlockSounds();
+
   isTimerRunning = true;
   timeLeft = 7;
   timerNumber.textContent = timeLeft;
   startButton.disabled = true;
+  nextButton.disabled = true;
 
   playSound(goSound);
 
@@ -61,10 +66,7 @@ function startTimer() {
     timerNumber.textContent = timeLeft;
 
     if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      isTimerRunning = false;
-      startButton.disabled = false;
+      stopTimer();
       timerNumber.textContent = "0";
       playSound(dingSound);
     }
@@ -79,6 +81,7 @@ function stopTimer() {
 
   isTimerRunning = false;
   startButton.disabled = false;
+  nextButton.disabled = false;
 }
 
 function resetTimerDisplay() {
@@ -90,13 +93,14 @@ function playSound(sound) {
   sound.pause();
   sound.currentTime = 0;
 
-  const playPromise = sound.play();
+  sound.play().catch((error) => {
+    console.warn("Audio failed:", error);
+  });
+}
 
-  if (playPromise !== undefined) {
-    playPromise.catch((error) => {
-      console.warn("Sound play blocked or failed:", error);
-    });
-  }
+function unlockSounds() {
+  goSound.load();
+  dingSound.load();
 }
 
 function shareGame() {
