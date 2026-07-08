@@ -4,8 +4,11 @@ const shareButton = document.getElementById("shareButton");
 const questionText = document.getElementById("questionText");
 const timerNumber = document.getElementById("timerNumber");
 
-const goSound = new Audio("assets/go.mp3?v=1");
-const dingSound = new Audio("assets/ding.mp3?v=2");
+const GO_SRC = "assets/go.mp3?v=3";
+const DING_SRC = "assets/ding.mp3?v=3";
+
+let goSound = new Audio(GO_SRC);
+let dingSound = new Audio(DING_SRC);
 
 goSound.preload = "auto";
 dingSound.preload = "auto";
@@ -14,14 +17,15 @@ let allPrompts = [];
 let timerInterval = null;
 let timeLeft = 7;
 let isTimerRunning = false;
+let audioUnlocked = false;
 
 fetch("prompts.csv")
-  .then((response) => response.text())
-  .then((csvText) => {
+  .then(response => response.text())
+  .then(csvText => {
     allPrompts = parseCSV(csvText);
     showRandomPrompt();
   })
-  .catch((error) => {
+  .catch(error => {
     console.error("Could not load prompts.csv:", error);
     questionText.textContent = "Could not load prompts.";
   });
@@ -29,9 +33,9 @@ fetch("prompts.csv")
 function parseCSV(csvText) {
   return csvText
     .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0)
-    .filter((line) => line.toLowerCase() !== "prompt");
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .filter(line => line.toLowerCase() !== "prompt");
 }
 
 function showRandomPrompt() {
@@ -51,7 +55,7 @@ function showRandomPrompt() {
 function startTimer() {
   if (isTimerRunning) return;
 
-  unlockSounds();
+  unlockAudio();
 
   isTimerRunning = true;
   timeLeft = 7;
@@ -59,18 +63,71 @@ function startTimer() {
   startButton.disabled = true;
   nextButton.disabled = true;
 
-  playSound(goSound);
+  playGo();
 
   timerInterval = setInterval(() => {
     timeLeft -= 1;
     timerNumber.textContent = timeLeft;
 
     if (timeLeft <= 0) {
-      stopTimer();
+      clearInterval(timerInterval);
+      timerInterval = null;
+
+      isTimerRunning = false;
+      startButton.disabled = false;
+      nextButton.disabled = false;
+
       timerNumber.textContent = "0";
-      playSound(dingSound);
+      playDing();
     }
   }, 1000);
+}
+
+function unlockAudio() {
+  if (audioUnlocked) return;
+
+  audioUnlocked = true;
+
+  goSound.load();
+  dingSound.load();
+
+  // iPhone/Safari unlock trick: quietly touch both audio files during the real button tap.
+  [goSound, dingSound].forEach(sound => {
+    sound.muted = true;
+    sound.currentTime = 0;
+
+    const p = sound.play();
+
+    if (p !== undefined) {
+      p.then(() => {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.muted = false;
+      }).catch(() => {
+        sound.muted = false;
+      });
+    } else {
+      sound.muted = false;
+    }
+  });
+}
+
+function playGo() {
+  goSound.pause();
+  goSound.currentTime = 0;
+  goSound.muted = false;
+  goSound.play().catch(error => {
+    console.warn("GO sound failed:", error);
+  });
+}
+
+function playDing() {
+  // Fresh Audio object helps mobile Safari replay it reliably after the timer delay.
+  const finalDing = new Audio(DING_SRC);
+  finalDing.volume = 1;
+  finalDing.play().catch(error => {
+    console.warn("DING sound failed:", error);
+  });
 }
 
 function stopTimer() {
@@ -89,20 +146,6 @@ function resetTimerDisplay() {
   timerNumber.textContent = "7";
 }
 
-function playSound(sound) {
-  sound.pause();
-  sound.currentTime = 0;
-
-  sound.play().catch((error) => {
-    console.warn("Audio failed:", error);
-  });
-}
-
-function unlockSounds() {
-  goSound.load();
-  dingSound.load();
-}
-
 function shareGame() {
   const shareText = questionText.textContent;
 
@@ -111,7 +154,7 @@ function shareGame() {
       title: "Seven Seconds",
       text: shareText,
       url: window.location.href
-    }).catch((error) => {
+    }).catch(error => {
       console.warn("Share cancelled or failed:", error);
     });
   } else {
