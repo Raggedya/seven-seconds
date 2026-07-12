@@ -1,0 +1,13 @@
+{
+  "id": "classic",
+  "title": "Seven Seconds",
+  "theme": "Conversation Starters",
+  "description": "Name three things before seven seconds runs out.",
+  "audience": "General, family-friendly",
+  "locale": "en-AU",
+  "promptsFile": "prompts.csv",
+  "backgroundImage": "assets/background.png",
+  "accentColor": "#168dff",
+  "timerSeconds": 7,
+  "shareText": "Can you name three before seven seconds runs out?"
+}

@@ -21,7 +21,18 @@ const AUDIO_VERSION = "20260711-1";
 const GO_SOUND_URL = `assets/go.mp3?v=${AUDIO_VERSION}`;
 const DING_SOUND_URL = `assets/ding.mp3?v=${AUDIO_VERSION}`;
 
-const TIMER_SECONDS = 7;
+const DEFAULT_THEME = {
+  title: "Seven Seconds",
+  description: "Name three things before seven seconds runs out.",
+  promptsFile: "prompts.csv",
+  backgroundImage: "assets/background.png",
+  accentColor: "#168dff",
+  timerSeconds: 7,
+  shareText: "Can you name three before seven seconds runs out?"
+};
+
+let themeConfig = { ...DEFAULT_THEME };
+let TIMER_SECONDS = DEFAULT_THEME.timerSeconds;
 
 let allPrompts = [];
 let promptDeck = [];
@@ -258,9 +269,38 @@ const gameAudio = new GameAudio();
    PROMPTS
    ========================================================= */
 
-fetch(`prompts.csv?v=${AUDIO_VERSION}`, {
-  cache: "no-store"
-})
+initializeGame();
+
+async function initializeGame() {
+  themeConfig = await loadThemeConfig();
+  applyThemeConfig(themeConfig);
+  await loadPrompts(themeConfig.promptsFile);
+}
+
+async function loadThemeConfig() {
+  try {
+    const response = await fetch(`theme.json?v=${AUDIO_VERSION}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+    return { ...DEFAULT_THEME, ...(await response.json()) };
+  } catch (error) {
+    console.warn("Could not load theme.json. Using defaults.", error);
+    return { ...DEFAULT_THEME };
+  }
+}
+
+function applyThemeConfig(config) {
+  document.title = config.title;
+  document.getElementById("gameDescription").setAttribute("content", config.description);
+  document.documentElement.style.setProperty("--accent", config.accentColor);
+  document.documentElement.style.setProperty("--background-image", `url("${config.backgroundImage}")`);
+
+  const seconds = Number(config.timerSeconds);
+  TIMER_SECONDS = Number.isFinite(seconds) && seconds > 0 ? seconds : DEFAULT_THEME.timerSeconds;
+  resetTimerDisplay();
+}
+
+function loadPrompts(promptsFile) {
+  return fetch(`${promptsFile}?v=${AUDIO_VERSION}`, { cache: "no-store" })
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP status ${response.status}`);
@@ -279,9 +319,10 @@ fetch(`prompts.csv?v=${AUDIO_VERSION}`, {
     showNextPrompt();
   })
   .catch((error) => {
-    console.error("Could not load prompts.csv:", error);
+    console.error(`Could not load ${promptsFile}:`, error);
     questionText.textContent = "Could not load prompts.";
   });
+}
 
 function parseSingleColumnCSV(csvText) {
   const lines = csvText
@@ -470,8 +511,8 @@ async function shareGame() {
   if (navigator.share) {
     try {
       await navigator.share({
-        title: "Seven Seconds",
-        text: shareText,
+        title: themeConfig.title,
+        text: `${themeConfig.shareText}\n\n${shareText}`,
         url: window.location.href
       });
     } catch (error) {
