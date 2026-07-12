@@ -9,16 +9,16 @@
 ## Steps
 
 1. Define the theme, intended players, locale and boundaries.
-2. Research the theme when current or specialist knowledge affects coverage.
+2. Research the theme when current or specialist knowledge affects coverage or factual quiz answers.
 3. Build a category map representing the theme broadly.
-4. Generate 220–250 candidate prompts.
-5. Remove weak, unsafe, ambiguous and near-duplicate prompts.
-6. Select and edit exactly 150 prompts using `PROMPT_QUALITY.md`.
-7. Create an original portrait background with clear space behind the controls. Every background must include the recognisable Aggits character and the exact edition title `Seven Seconds - [Theme]`.
+4. Write and edit the Name 3 library in `name3-prompts.csv`.
+5. Write and fact-check the Quick Quiz library in `quiz-questions.csv`; include accepted answers and a useful reference or explanatory note where appropriate.
+6. Remove weak, unsafe, ambiguous and near-duplicate content using `PROMPT_QUALITY.md`.
+7. Use the existing portrait background and Aggits identity. For a themed edition, only use an approved background carrying the exact edition title `Seven Seconds - [Theme]` and a clear central interface area.
 8. Copy this master template into a new repository.
-9. Replace only `theme.json`, `prompts.csv` and `assets/background.png`; confirm the background title matches `backgroundTitle` and the character matches `brandCharacter`.
-10. Run `node scripts/validate-edition.mjs`.
-11. Test timer, audio, prompt shuffling, sharing and mobile layout.
+9. Update `theme.json`, the two content CSVs and only the edition-specific approved background.
+10. Run `node scripts/validate-edition.mjs` and `node scripts/test-game.mjs`.
+11. Test all modes, timer, audio, answer reveal, no-repeat decks, sharing and short-screen mobile layout.
 12. Publish and return the repository and live-game links.
 
 Engine changes belong in the master template first and should be propagated deliberately to existing editions.

@@ -1,19 +1,31 @@
 # Seven Seconds master template
 
-Seven Seconds is a lightweight browser game. A player sees a “Name 3” prompt and has seven seconds to respond before the bell sounds.
+Seven Seconds is a lightweight mobile-first browser game with three choices:
 
-## Create a themed edition
+- **Name 3** — open-ended conversation prompts with no displayed answer.
+- **Quick Quiz** — factual questions with answers revealed after the seven-second timer.
+- **Mixed Game** — one no-repeat shuffled deck containing both item types.
 
-Each edition changes only:
+Every round retains the Go sound, seven-second countdown and finishing bell. The audio implementation uses Web Audio with an HTML Audio fallback and unlocks directly from the player’s Start Timer tap.
+
+## Edition content
+
+Each edition keeps content outside the engine:
 
 1. `theme.json` — title, audience, sharing text, accent colour and asset paths.
-2. `prompts.csv` — exactly 150 reviewed, unique prompts.
-3. `assets/background.png` — an original portrait background designed around the interface safe area.
+2. `name3-prompts.csv` — one `prompt` column; every row starts with `Name 3`.
+3. `quiz-questions.csv` — `question,answer,reference` columns; reference is optional.
+4. `assets/background.png` — the existing portrait background designed around the interface safe area.
 
-The game engine, interface and audio assets remain unchanged unless an improvement is intended for every edition.
+The engine lives in `game-engine.js` and `script.js`. The existing `assets/go.mp3` and `assets/ding.mp3` files must not be replaced without deliberate audio testing.
 
-See [`docs/EDITION_WORKFLOW.md`](docs/EDITION_WORKFLOW.md) for production and [`docs/PROMPT_QUALITY.md`](docs/PROMPT_QUALITY.md) for editorial acceptance.
+## Validate and test
 
-## Validate an edition
+```text
+node scripts/validate-edition.mjs
+node scripts/test-game.mjs
+node --check game-engine.js
+node --check script.js
+```
 
-Run `node scripts/validate-edition.mjs`. It checks configuration, asset paths, prompt count, duplicates and basic prompt form before publication.
+See `docs/EDITION_WORKFLOW.md` for production and `docs/PROMPT_QUALITY.md` for editorial acceptance.

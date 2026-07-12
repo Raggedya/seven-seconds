@@ -1,15 +1,16 @@
 {
   "id": "classic",
   "title": "Seven Seconds",
-  "theme": "Conversation Starters",
-  "description": "Name three things before seven seconds runs out.",
+  "theme": "Conversation Starters and Quick Quiz",
+  "description": "Choose Name 3, Quick Quiz or a Mixed Game and beat the seven-second timer.",
   "audience": "General, family-friendly",
   "locale": "en-AU",
-  "promptsFile": "prompts.csv",
+  "name3File": "name3-prompts.csv",
+  "quizFile": "quiz-questions.csv",
   "backgroundImage": "assets/background.png",
   "backgroundTitle": "Seven Seconds",
   "brandCharacter": "Aggits",
   "accentColor": "#168dff",
   "timerSeconds": 7,
-  "shareText": "Can you name three before seven seconds runs out?"
+  "shareText": "Can you beat the Seven Seconds clock?"
 }

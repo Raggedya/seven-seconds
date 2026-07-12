@@ -3,52 +3,106 @@
 :root{
   --accent:#168dff;
   --background-image:url("assets/background.png");
+  --panel:rgba(3,5,10,.94);
 }
 
+html,body{height:100%;background:#000}
 body{
-  height:100vh;overflow:hidden;background:#000;
-  font-family:Arial,Helvetica,sans-serif;color:white;
+  min-height:100dvh;overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;color:#fff;
   display:flex;justify-content:center;align-items:center;
 }
+button{font:inherit;-webkit-tap-highlight-color:transparent}
 
-.game-screen{
-  width:min(100vw,430px);height:100vh;
+.app-shell{
+  width:min(100vw,430px);height:100vh;height:100dvh;
   background:var(--background-image) center top / 100% 100% no-repeat;
-  display:flex;flex-direction:column;align-items:center;padding-top:32vh;
+  position:relative;overflow:hidden;
 }
 
-.question-card{
-  width:82%;background:rgba(3,5,10,.94);border:1.5px solid var(--accent);
-  border-radius:22px;padding:24px 20px 22px;margin-bottom:14px;
-  box-shadow:0 0 22px rgba(0,140,255,.28);
+.mode-screen,.game-screen{
+  width:100%;height:100%;display:flex;flex-direction:column;align-items:center;
+  padding-top:32vh;padding-top:32dvh;
 }
+[hidden]{display:none!important}
 
+.mode-card,.question-card{
+  width:82%;background:var(--panel);border:1.5px solid var(--accent);
+  border-radius:22px;box-shadow:0 0 22px rgba(0,140,255,.28);
+}
+.mode-card{padding:22px 20px 20px;text-align:center}
+.eyebrow,.item-type{color:var(--accent);font-weight:900;letter-spacing:2.5px;font-size:.76rem}
+.mode-card h1{font-size:1.55rem;margin:7px 0 5px}
+.mode-intro{font-size:.9rem;color:#c8d2df;margin-bottom:16px}
+.mode-buttons{display:grid;gap:10px}
+.mode-button{
+  width:100%;min-height:62px;border:1px solid rgba(22,141,255,.62);border-radius:14px;
+  color:#fff;background:linear-gradient(180deg,#181e29,#0b0e14);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 12px;
+}
+.mode-button strong{font-size:1.08rem;color:var(--accent)}
+.mode-button span{font-size:.75rem;color:#c4cfdb;margin-top:3px}
+
+.question-card{padding:18px 20px 16px;margin-bottom:12px;text-align:center}
+.item-type{margin-bottom:6px}
 .question-text{
-  min-height:112px;display:flex;align-items:center;justify-content:center;
-  text-align:center;font-size:1.52rem;line-height:1.28;font-weight:900;
-  color:var(--accent);margin-bottom:18px;
+  min-height:92px;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:1.38rem;line-height:1.24;font-weight:900;
+  color:var(--accent);overflow-wrap:anywhere;
 }
+.answer-area{
+  margin:0 0 12px;padding:10px 12px;border-radius:12px;
+  background:rgba(22,141,255,.11);border:1px solid rgba(22,141,255,.4);
+  max-height:112px;overflow-y:auto;
+}
+.answer-label{font-size:.64rem;letter-spacing:2px;font-weight:900;color:#a9cfff;margin-bottom:4px}
+.answer-text{font-size:1rem;line-height:1.25;font-weight:800;color:#fff;overflow-wrap:anywhere}
+.reference-text{font-size:.72rem;line-height:1.25;color:#b8c5d3;margin-top:5px}
 
-.timer-wrap{display:flex;justify-content:center}
+.timer-wrap{display:flex;justify-content:center;margin-top:10px}
 .timer-ring{
-  width:128px;height:128px;border-radius:50%;border:9px solid var(--accent);
+  width:116px;height:116px;border-radius:50%;border:8px solid var(--accent);
   display:flex;align-items:center;justify-content:center;
   box-shadow:0 0 18px rgba(0,140,255,.8);
 }
 .timer-inner{display:flex;flex-direction:column;align-items:center;justify-content:center}
-.timer-number{font-size:3.45rem;font-weight:900;line-height:.9;color:white}
-.timer-label{font-size:.68rem;letter-spacing:4px;color:var(--accent);margin-top:8px}
+.timer-number{font-size:3.1rem;font-weight:900;line-height:.9;color:#fff}
+.timer-label{font-size:.62rem;letter-spacing:3.5px;color:var(--accent);margin-top:7px}
 
-.buttons{width:82%;display:flex;flex-direction:column;align-items:center;gap:10px}
-.main-button,.secondary-button{
-  width:100%;height:54px;border:none;border-radius:15px;
-  font-size:1.24rem;font-weight:900;color:white;cursor:pointer;
+.buttons{width:82%;display:flex;flex-direction:column;align-items:center;gap:8px}
+.main-button,.secondary-button,.reveal-button{
+  width:100%;height:50px;border:none;border-radius:14px;
+  font-size:1.12rem;font-weight:900;color:#fff;cursor:pointer;
 }
 .main-button{background:linear-gradient(180deg,#1697ff,#126edb);box-shadow:0 0 16px rgba(0,140,255,.45)}
+.reveal-button{background:linear-gradient(180deg,#174f7d,#0d3153);border:1px solid var(--accent)}
 .secondary-button{background:linear-gradient(180deg,#181c24,#0c0f15)}
-.share-button{
-  width:58%;height:40px;border:1px solid rgba(255,255,255,.28);border-radius:13px;
-  background:rgba(0,0,0,.78);color:white;font-size:1rem;font-weight:800;cursor:pointer;
+.utility-buttons{width:100%;display:flex;gap:8px}
+.share-button,.mode-return-button{
+  flex:1;height:38px;border:1px solid rgba(255,255,255,.28);border-radius:12px;
+  background:rgba(0,0,0,.8);color:#fff;font-size:.88rem;font-weight:800;cursor:pointer;
 }
 button:hover{filter:brightness(1.08)}
-button:disabled{opacity:.65}
+button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+button:disabled{opacity:.5;cursor:not-allowed;filter:none}
+
+@media (max-height:740px){
+  .mode-screen,.game-screen{padding-top:27vh;padding-top:27dvh}
+  .mode-card{padding:16px 16px 15px}.mode-intro{margin-bottom:10px}
+  .mode-button{min-height:52px}.mode-buttons{gap:7px}
+  .question-card{padding:13px 16px 12px;margin-bottom:8px}
+  .question-text{min-height:67px;font-size:1.18rem}
+  .answer-area{max-height:80px;padding:7px 9px;margin-bottom:8px}
+  .timer-wrap{margin-top:6px}.timer-ring{width:94px;height:94px;border-width:7px}
+  .timer-number{font-size:2.55rem}.buttons{gap:6px}
+  .main-button,.secondary-button,.reveal-button{height:43px;font-size:1rem}
+  .share-button,.mode-return-button{height:34px}
+}
+
+@media (max-height:620px){
+  .mode-screen,.game-screen{padding-top:22vh;padding-top:22dvh}
+  .question-text{min-height:54px;font-size:1.05rem}
+  .timer-ring{width:82px;height:82px}.timer-number{font-size:2.2rem}
+  .timer-label{font-size:.52rem;letter-spacing:2.5px;margin-top:4px}
+  .answer-area{max-height:62px}.item-type{font-size:.65rem}
+}

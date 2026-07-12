@@ -1,42 +1,42 @@
-# Prompt quality checklist
+# Content quality checklist
 
-Every published edition contains exactly 150 unique prompts.
+## Name 3 prompts
 
-## Every prompt
-
-- Starts with “Name 3”.
-- Is short, clear and natural when read aloud.
-- Has at least three plausible answers for the intended audience.
+- Begin with “Name 3”.
+- Are short, clear and natural when read aloud.
+- Have at least three plausible answers for the intended audience.
 - Can reasonably be answered in seven seconds.
-- Does not depend on an obscure fact or a single disputed answer.
+- Stimulate conversation instead of depending on one obscure fact.
 
-## The complete deck
+## Quick Quiz questions
 
-- Has no duplicates or superficial rewordings.
-- Covers the theme broadly instead of clustering around one subtopic.
-- Mixes easy, playful, reflective and challenging prompts.
-- Avoids long runs with the same grammatical pattern.
-- Works for individual and social play.
+- Ask one clear factual question.
+- Include a correct, concise answer suitable for a mobile card.
+- List multiple accepted answers when reasonable, separated by semicolons.
+- Include a source, rule or short explanatory note in `reference` when it improves confidence or context.
+- Never put answer text in the question.
 
-## Audience and safety
+## Complete libraries
 
-- Matches the audience, locale and sensitivity level in `theme.json`.
-- Avoids humiliation, dangerous dares and unwanted private disclosure.
-- Avoids stereotypes and assumptions about culture, family, health, income or ability.
-- Gives health, politics, religion, trauma and relationships additional editorial review.
-- Uses original wording and original or appropriately licensed artwork.
+- Contain no exact or superficial duplicates.
+- Cover the theme broadly instead of clustering around one subtopic.
+- Mix easy, playful and challenging items.
+- Match the audience, locale and sensitivity level in `theme.json`.
+- Use valid CSV quoting for commas and quotation marks.
+- Use original wording and original or appropriately licensed artwork.
 
-## Final editorial pass
+## Final checks
 
-- Read every prompt aloud.
-- Confirm spelling and regional language.
-- Produce three example answers for every prompt.
-- Remove near-duplicates by meaning, not only exact matching.
-- Play-test a representative sample before publication.
+- Read every item aloud and confirm spelling and regional language.
+- Fact-check every quiz answer.
+- Run both repository validation scripts.
+- Play-test Name 3, Quick Quiz and Mixed Game.
+- Confirm a quiz answer cannot appear before the bell.
+- Confirm neither library repeats until its deck is exhausted.
 
 ## Background acceptance
 
-- Includes the recognisable Aggits character.
-- Includes the exact title `Seven Seconds - [Theme]` with correct spelling.
+- Includes the recognisable Aggits character and Seven Seconds logo.
+- Includes the exact approved edition title.
 - Keeps the central interface area dark, uncluttered and readable.
-- Uses original or appropriately licensed supporting artwork.
+- Is not cropped, stretched or redesigned by the game layout.
