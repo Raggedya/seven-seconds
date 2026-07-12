@@ -14,9 +14,9 @@
 4. Generate 220–250 candidate prompts.
 5. Remove weak, unsafe, ambiguous and near-duplicate prompts.
 6. Select and edit exactly 150 prompts using `PROMPT_QUALITY.md`.
-7. Create an original portrait background with clear space behind the controls.
+7. Create an original portrait background with clear space behind the controls. Every background must include the recognisable Aggits character and the exact edition title `Seven Seconds - [Theme]`.
 8. Copy this master template into a new repository.
-9. Replace only `theme.json`, `prompts.csv` and `assets/background.png`.
+9. Replace only `theme.json`, `prompts.csv` and `assets/background.png`; confirm the background title matches `backgroundTitle` and the character matches `brandCharacter`.
 10. Run `node scripts/validate-edition.mjs`.
 11. Test timer, audio, prompt shuffling, sharing and mobile layout.
 12. Publish and return the repository and live-game links.

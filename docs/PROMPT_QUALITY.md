@@ -33,3 +33,10 @@ Every published edition contains exactly 150 unique prompts.
 - Produce three example answers for every prompt.
 - Remove near-duplicates by meaning, not only exact matching.
 - Play-test a representative sample before publication.
+
+## Background acceptance
+
+- Includes the recognisable Aggits character.
+- Includes the exact title `Seven Seconds - [Theme]` with correct spelling.
+- Keeps the central interface area dark, uncluttered and readable.
+- Uses original or appropriately licensed supporting artwork.

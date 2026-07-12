@@ -7,6 +7,8 @@
   "locale": "en-AU",
   "promptsFile": "prompts.csv",
   "backgroundImage": "assets/background.png",
+  "backgroundTitle": "Seven Seconds",
+  "brandCharacter": "Aggits",
   "accentColor": "#168dff",
   "timerSeconds": 7,
   "shareText": "Can you name three before seven seconds runs out?"

@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const errors = [];
 const theme = JSON.parse(await readFile(path.join(root, "theme.json"), "utf8"));
-const required = ["id", "title", "theme", "description", "audience", "locale", "promptsFile", "backgroundImage", "accentColor", "timerSeconds", "shareText"];
+const required = ["id", "title", "theme", "description", "audience", "locale", "promptsFile", "backgroundImage", "backgroundTitle", "brandCharacter", "accentColor", "timerSeconds", "shareText"];
 
 for (const field of required) {
   if (theme[field] === undefined || theme[field] === "") errors.push(`theme.json is missing ${field}.`);
