@@ -2,46 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Seven Seconds</title>
-  <meta id="gameDescription" name="description" content="Name three things before seven seconds runs out." />
+  <meta id="gameDescription" name="description" content="Choose Name 3, Quick Quiz or a Mixed Game and beat the seven-second timer." />
+  <link rel="preload" href="assets/go.mp3" as="audio" type="audio/mpeg" />
+  <link rel="preload" href="assets/ding.mp3" as="audio" type="audio/mpeg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <main class="game-screen">
-
-    <section class="question-card">
-      <div id="questionText" class="question-text">
-        Press Next Question to begin.
-      </div>
-
-      <div class="timer-wrap">
-        <div id="timerRing" class="timer-ring">
-          <div class="timer-inner">
-            <div id="timerNumber" class="timer-number">7</div>
-            <div class="timer-label">SECONDS</div>
-          </div>
+  <main class="app-shell">
+    <section id="modeScreen" class="mode-screen" aria-labelledby="modeTitle">
+      <div class="mode-card">
+        <p class="eyebrow">SEVEN SECONDS</p>
+        <h1 id="modeTitle">Choose Your Game</h1>
+        <p class="mode-intro">Pick a style and get ready to beat the clock.</p>
+        <div class="mode-buttons">
+          <button class="mode-button" type="button" data-mode="name3">
+            <strong>Name 3</strong>
+            <span>Open-ended conversation prompts</span>
+          </button>
+          <button class="mode-button" type="button" data-mode="quiz">
+            <strong>Quick Quiz</strong>
+            <span>Questions with revealable answers</span>
+          </button>
+          <button class="mode-button" type="button" data-mode="mixed">
+            <strong>Mixed Game</strong>
+            <span>Both styles in one shuffled deck</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <section class="buttons">
-      <button id="startButton" class="main-button" type="button">
-        ▶ Start Timer
-      </button>
+    <section id="gameScreen" class="game-screen" hidden aria-live="polite">
+      <section class="question-card">
+        <div id="itemType" class="item-type">NAME 3</div>
+        <div id="questionText" class="question-text">Choose a game to begin.</div>
 
-      <button id="nextButton" class="secondary-button" type="button">
-        Next Question ›
-      </button>
+        <div id="answerArea" class="answer-area" hidden>
+          <div class="answer-label">ANSWER</div>
+          <div id="answerText" class="answer-text"></div>
+          <div id="referenceText" class="reference-text" hidden></div>
+        </div>
 
-      <button id="shareButton" class="share-button" type="button">
-        ⤴ Share
-      </button>
+        <div class="timer-wrap">
+          <div id="timerRing" class="timer-ring">
+            <div class="timer-inner">
+              <div id="timerNumber" class="timer-number">7</div>
+              <div class="timer-label">SECONDS</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="buttons">
+        <button id="startButton" class="main-button" type="button">▶ Start Timer</button>
+        <button id="revealButton" class="reveal-button" type="button" hidden disabled>Reveal Answer</button>
+        <button id="nextButton" class="secondary-button" type="button">Next Prompt ›</button>
+        <div class="utility-buttons">
+          <button id="shareButton" class="share-button" type="button">↗ Share</button>
+          <button id="modeButton" class="mode-return-button" type="button">Choose Game</button>
+        </div>
+      </section>
     </section>
-
   </main>
 
+  <script src="game-engine.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
